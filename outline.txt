@@ -1,0 +1,22 @@
+Create training data:
+1. Download MNIST
+2. For each image, create sequence (X_0, X_1, ..., X_T)
+    a. X_0 is the original 28x28 image, X_T is N(0, 1)
+    b. X_t = (1-t)X_0 + N(0, 1/T)
+    c. Note:
+        i. original image is scaled down
+        ii. same amount of noise is added at each step
+3. We're predicting what you have to add to go backwards in the sequence:
+    a. namely X_t + Y_t = X_{t-1}  =>  Y_t = X_{t-1} - X_t  for t = 1, 2, ..., T
+4. Training data is now all (X_t, Y_t) = (X_t, X_{t-1} - X_t) pairs.
+4. Create a pytorch dataset and dataloader. Just shuffle at the dataloader phase.
+5. Do this separately for the train and test data to avoid data leakage.
+
+
+Create network:
+1. Input is 28x28 X_t
+2. Output is 28x28 Y_hat_t 
+
+
+Create loss function:
+1. MSE(Y_hat_t, Y_t) 
