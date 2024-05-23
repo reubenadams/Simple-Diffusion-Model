@@ -32,13 +32,13 @@ transform = transforms.Compose([
 ])
 
 
-train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform,
-                               target_transform=lambda y: F.one_hot(t.tensor(y), num_classes=10))
-# train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+def get_data_loaders():
+    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform,
+                                   target_transform=lambda y: F.one_hot(t.tensor(y), num_classes=10))
+    train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
-test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform,
-                              target_transform=lambda y: F.one_hot(t.tensor(y), num_classes=10))
-# test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
+    test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform,
+                                  target_transform=lambda y: F.one_hot(t.tensor(y), num_classes=10))
+    test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
-
-
+    return train_loader, test_loader
