@@ -7,8 +7,8 @@ Create training data:
         i. original image is scaled down
         ii. same amount of noise is added at each step
 3. We're predicting what you have to add to go backwards in the sequence:
-    a. namely X_t + Y_t = X_{t-1}  =>  Y_t = X_{t-1} - X_t  for t = 1, 2, ..., T
-4. Training data is now all (X_t, Y_t) = (X_t, X_{t-1} - X_t) pairs.
+    a. namely X_t + Y_t = X_{t-1}  =>  Y_t = X_{t-1} - X_t  for t = 1, 2, ..., T.
+4. Training data is now all (X_t, Y_t) = (X_t, X_{t-1} - X_t) pairs for t = 1, 2, ..., T.
 4. Create a pytorch dataset and dataloader. Just shuffle at the dataloader phase.
 5. Do this separately for the train and test data to avoid data leakage.
 

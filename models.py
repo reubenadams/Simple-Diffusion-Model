@@ -3,14 +3,14 @@ from torch import nn
 
 
 class MLP(nn.Module):
-    def __init__(self, num_labels, img_c, img_h, img_w, seq_length, d_hidden=None):
+    def __init__(self, num_classes, img_c, img_h, img_w, seq_length, d_hidden=None):
         super().__init__()
-        self.num_labels = num_labels
+        self.num_classes = num_classes
         self.img_c = img_c
         self.img_h = img_h
         self.img_w = img_w
         self.seq_length = seq_length
-        self.d_in = num_labels + img_c * img_h * img_w  # This is a conditional diffusion model - tell it the label.
+        self.d_in = num_classes + img_c * img_h * img_w  # This is a conditional diffusion model - tell it the label.
         self.d_out = img_c * img_h * img_w
         if d_hidden is None:
             self.d_hidden = self.d_in  # Model still has access to label at hidden dimension.
