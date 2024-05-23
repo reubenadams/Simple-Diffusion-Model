@@ -5,6 +5,7 @@ import torch as t
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 import torch.nn.functional as F
+import matplotlib.pyplot as plt
 
 
 device = "cuda" if t.cuda.is_available() else "cpu"
@@ -25,14 +26,14 @@ class OneHotTargetTransform:
         self.num_classes = num_classes
 
 
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,)),
-    ScaledSequenceTransform(T=32),
-])
+def get_data_loaders(T):
 
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,)),
+        ScaledSequenceTransform(T=T),
+    ])
 
-def get_data_loaders():
     train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform,
                                    target_transform=lambda y: F.one_hot(t.tensor(y), num_classes=10))
     train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
@@ -42,3 +43,9 @@ def get_data_loaders():
     test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
     return train_loader, test_loader
+
+
+if __name__ == "__main__":
+    train_loader, test_loader = get_data_loaders(10)
+    for x in train_loader:
+        pass

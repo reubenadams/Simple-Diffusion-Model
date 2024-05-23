@@ -13,6 +13,8 @@ Create training data:
 5. Do this separately for the train and test data to avoid data leakage.
 
 
+Put in (label, X_t), get out Y_t = X_{t-1} - X_t, so X_{t-1} = Y_t + X_t
+
 Create network:
 1. Input is 28x28 X_t
 2. Output is 28x28 Y_hat_t 
